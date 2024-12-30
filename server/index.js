@@ -28,8 +28,8 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use(cors({
-    origin:"http://localhost:5173",
-    // origin:"https://learnpro-backend-9joe.onrender.com",
+    // origin:"http://localhost:5173",
+    origin:"https://learnpro-1.onrender.com",
     credentials:true
 }));
  
