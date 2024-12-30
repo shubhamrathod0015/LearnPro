@@ -9,6 +9,9 @@ import mediaRoute from "./routes/media.route.js";
 import purchaseRoute from "./routes/purchaseCourse.route.js";
 import courseProgressRoute from "./routes/courseProgress.route.js";
 
+// 
+import path from "path";
+
 dotenv.config({});
 
 // call database connection here
@@ -17,12 +20,16 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 
+// 
+const _dirname = path.resolve();
+
 // default middleware
 app.use(express.json());
 app.use(cookieParser());
 
 app.use(cors({
     origin:"http://localhost:5173",
+    // origin:"https://learnpro-backend-9joe.onrender.com",
     credentials:true
 }));
  
@@ -33,7 +40,12 @@ app.use("/api/v1/course", courseRoute);
 app.use("/api/v1/purchase", purchaseRoute);
 app.use("/api/v1/progress", courseProgressRoute);
  
- 
+//  
+app.use(express.static(path.join(_dirname, "/client/dist")));
+app.get('*', (_,res) => {
+    res.sendFile(path.resolve(_dirname, "client", "dist", "index.html"));
+});
+
 app.listen(PORT, () => {
     console.log(`Server listen at port ${PORT}`);
 })
